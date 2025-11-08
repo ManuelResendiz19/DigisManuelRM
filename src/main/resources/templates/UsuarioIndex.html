@@ -1,0 +1,81 @@
+<html xmlns:th="https://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<!--    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">           
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    </head>-->
+    <body class="container py-4" layout:fragment="body">
+
+    <!-- Botón Agregar -->
+    <div class="d-grid gap-2 col-6 mx-auto mb-4">
+        <a th:href="@{/usuario/add}" class="btn btn-success btn-lg shadow-sm"><i class="bi bi-person-fill-add"> Agregar</i></a>
+        <a th:href="@{/usuario/bulkUpload}" class="btn btn-danger"><i class="bi bi-file-earmark-plus-fill"> Carga Masiva</i></a>
+    </div>
+
+    <!-- Formulario de búsqueda -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <form method="post" th:action="@{/usuarioSearch}" th:object="${usuario}">
+                <div class="row g-3 align-items-center">
+                    <div class="col">
+                        <input type="text" name="nombre" th:field="*{Nombre}" class="form-control" placeholder="Nombre">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="apellidopaterno" th:field="*{ApellidoPaterno}" class="form-control" placeholder="Cortez">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="apellidomaterno" th:field="*{ApellidoMaterno}" class="form-control" placeholder="Dominguez">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de usuarios -->
+    <div class="arriba">
+        <div class="table-responsive shadow-sm">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="col-1 text-center">Acción</th>
+                        <th class="col-2">Nombre</th>
+                        <th class="col-3">Contacto</th>
+                        <th class="col-4">Dirección</th>
+                        <th class="col-2">Roles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="usuario : ${Usuarios}">
+                        <td class="text-center">
+                            <a th:href="@{usuario/detail/{idUsuario}(idUsuario = ${usuario.IdUsuario})}" class="btn btn-primary btn-sm mb-1">
+                                <i class="bi bi-pen-fill"></i> Editar
+                            </a>
+                            <button type="button" class="btn btn-danger btn-sm mb-1">
+                                <i class="bi bi-trash2"></i> Borrar
+                            </button>
+                        </td>
+                        <td th:text="|${usuario.Nombre} ${usuario.ApellidoPaterno} ${usuario.ApellidoMaterno}|"></td>
+                        <td th:text="|${usuario.Telefono} ${usuario.Email} ${usuario.Celular}|"></td>
+                        <td>
+                            <ul class="mb-0" th:each="direccion : ${usuario.Direcciones}">
+                                <li th:text="|${direccion.Calle} ${direccion.NumeroExterior} ${direccion.NumeroInterior}|"></li>
+                            </ul>
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

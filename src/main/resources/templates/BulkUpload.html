@@ -1,0 +1,129 @@
+<html xmlns:th="http://www.thyemleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body layout:fragment="body">
+        <br>
+        <br>
+        <button id="mostrarArchivos" class="btn btn-primary btn-sm" onclick="mostrarArchivos()" style="width: 120px">Archivos</button>
+
+            <div id="botones" class="row" style="display:none">
+                <div class="btn-group" aria-label="Default button group">
+                    <button class="btn btn-success col-md-6 btn-sm" id="btnExcel" style="width: 50px">Excel</button>
+                    <button class="btn btn-primary col-md-6 btn-sm" id="btnTxt" style="width: 50px">TXT</button>
+                </div>
+            </div>
+
+            <div id="formularioArchivo" style="display: none">
+                <br>
+                <form action="/usuario/bulkUpload" method="post" enctype="multipart/form-data">
+                    <input type="file" id="archivo" name="archivo" accept=".xlsx,.txt">
+                    <button type="submit" class="btn btn-success" id="BulkUpload">Subir Archivo</button>
+                </form>
+            </div>
+        
+        
+        <div th:if="${errores}">
+            <p>Lista errores</p>
+        </div>
+        
+        <div th:if="${errores == false}">
+            <a class="btn btn-success" th:href = "@{/usuario/bulkUpload/process}">
+        </div>
+        
+         <style>
+        /* Centrar todo el contenido */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        /* Botón principal */
+        #mostrarArchivos {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        /* Contenedor de los botones Excel y TXT */
+        #botones {
+            display: none;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        /* Grupo de botones */
+        .btn-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* Botones pequeños y centrados */
+        #btnExcel,
+        #btnTxt {
+            width: 80px !important;
+        }
+
+        /* Formulario centrado */
+        #formularioArchivo {
+            display: none;
+            text-align: center;
+        }
+
+        /* Input de archivo y botón */
+        #archivo {
+            margin-bottom: 10px;
+        }
+    </style>
+        
+        <script>
+            function mostrarArchivos() {
+                document.getElementById("mostrarArchivos").style.display = "none";
+                document.getElementById("botones").style.display = "block";
+            }
+
+            let tipoArchivo = "";
+
+            document.getElementById("btnExcel").addEventListener("click", function () {
+                tipoArchivo = "xlsx"; // Tipo de archivo que se espera
+                document.getElementById("formularioArchivo").style.display = "block";
+                document.getElementById("archivo").setAttribute("accept", ".xlsx"); // Solo archivos Excel
+
+                // Cambiar el botón "Subir Archivo" a verde (btn-success)
+                document.getElementById("cargaMasiva").classList.remove("btn-primary");
+                document.getElementById("cargaMasiva").classList.add("btn-success");
+            });
+
+            document.getElementById("btnTxt").addEventListener("click", function () {
+                tipoArchivo = "txt"; // Tipo de archivo que se espera
+                document.getElementById("formularioArchivo").style.display = "block";
+                document.getElementById("archivo").setAttribute("accept", ".txt"); // Solo archivos TXT
+
+                // Cambiar el botón "Subir Archivo" a azul (btn-primary)
+                document.getElementById("cargaMasiva").classList.remove("btn-success");
+                document.getElementById("cargaMasiva").classList.add("btn-primary");
+            });
+
+            document.getElementById("archivo").addEventListener("change", function () {
+                if (this.files.length > 0) {
+                    var fileName = this.files[0].name;
+                    var fileExtension = fileName.split('.').pop().toLowerCase();
+
+                    if (fileExtension !== tipoArchivo) {
+                        alert("Por favor, seleccione un archivo " + tipoArchivo.toUpperCase() + " válido.");
+                        this.value = "";
+                    }
+                }
+            });
+            
+            
+        </script>
+    </body>
+</html>

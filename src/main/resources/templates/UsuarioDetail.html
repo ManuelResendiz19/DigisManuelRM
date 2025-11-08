@@ -1,0 +1,420 @@
+<html xmlns:th="http://www.thyemleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<!--    <head>
+        <title>Detalles de Usuario</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">           
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    </head>-->
+    <style>
+        #card-1{
+            margin: 20px;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .gradient_anim_btn{
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 12px;
+            padding: 14px 20px 14px 20px;
+            border-color: black;
+            border-radius: 0.7em;
+            background: -webkit-linear-gradient(225deg, rgb(311, 55, 70), rgb(15, 21, 242),
+                rgb(21, 198, 251)) 0% 0% / 300% 300%;
+            background-size: 200% auto;
+            -webkit-animation: gradient_move 3s ease infinite;
+            animation: gradient_move 3s ease infinite;
+        }
+        
+        @-webkit-keyframes gradient_move {
+            0%{
+                background-position: 0% 92%
+            }
+            50%{
+                background-position: 100% 9%
+            }
+            100%{
+                background-position: 0% 92%
+            }
+        }
+
+        @keyframes gradient_move {
+            0%{
+                background-position: 0% 92%
+            }
+            50%{
+                background-position: 100% 9%
+            }
+            100%{
+                background-position: 0% 92%
+            }
+        }
+        
+        
+        #card-2{
+            
+            background-color: black
+            
+        }
+        
+    </style>
+    
+    <script>
+            
+            
+          let modal = new bootstrap.modal(document.getElementById('formModal'));
+          function showModal(){
+            modal.show();
+        }  
+
+        
+    </script>
+    
+    <body  layout:fragment="body">
+        <div class="conteiner mt-5">
+            <div class="row">
+                <div class="col-md-6">    
+                    <div class="card">
+                        <div class="card mb-1" style="width: 40rem;" id="card-1">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1200px-User_icon_2.svg.png" style="max-height: 250px; object-fit: contain" class="card-img-top">
+                            <div class="card-body">
+                                <h3 style="text-align: center; color : white;">Usuario</h3>
+                                <i class="bi bi-person-check-fill fw-bold" style="color : white"> Nombre:</i>
+                                <p class="card-text fw-bold" th:text="${usuario.Nombre}" style="color : white"></p>
+                                <ul>
+                                    <i class="bi bi-person-lines-fill fw-bold" style="color : white"> Apellido Paterno:</i>
+                                    <p class="card-text fw-bold" th:text="${usuario.ApellidoPaterno}" style="color : white"></p>
+                                    <i class="bi bi-person-lines-fill fw-bold" style="color : white"> Apellido Materno:</i>
+                                    <p class="card-text fw-bold" th:text="${usuario.ApellidoMaterno}" style="color : white"></p>
+                                    <i class="bi bi-person-lines-fill fw-bold" style="color : white"> Fecha Nacimiento:</i>
+                                    <p class="card-text fw-bold" th:text="${usuario.FechaNacimiento}" style="color : white"></p>
+                                </ul>
+                                <i class="bi bi-person-circle fw-bold" style="color : white"> User Name:</i>
+                                <p class="card-text fw-bold" th:text="${usuario.UserName}" style="color : white"></p>
+
+                                <i class="bi bi-envelope fw-bold" style="color : white"> Email:</i>
+                                <p class="card-text fw-bold" th:text="${usuario.Email}" style="color : white"></p>
+
+                                <i class="bi bi-gender-ambiguous fw-bold" style="color : white"> Sexo:</i>
+                                <p class="card-text fw-bold" th:text="${usuario.Sexo}" style="color : white"></p>
+
+                                <i class="bi bi-telephone fw-bold" style="color : white"> Telefono:</i>
+                                <p class="card-text fw-bold" th:text="${usuario.Telefono}" style="color : white"></p>
+
+                                <i class="bi bi-phone fw-bold" style="color : white"> Celular:</i>
+                                <p class="card-text fw-bold" th:text="${usuario.Celular}" style="color : white"></p>
+
+                                <i class="bi bi-person-fill-lock fw-bold" style="color : white"> CURP:</i>
+                                <p class="card-text fw-bold" th:text="${usuario.CURP}" style="color : white"></p>
+
+                                <button type="button" class="gradient_anim_btn" data-bs-toggle="modal" data-bs-target="#formModal">Editar Usuario</button>
+                            </div>
+                            <!--  Formulario con un modal -->
+                            <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <form th:action="@{/usuario/detail}" method="post" th:object="${usuario}">
+                                            <div class="mb-3" >
+                                                <br>
+                                                <label for="nombre" class="form-label"> Nombre:</label>
+                                                <input type="text" name="nombre" th:field="*{Nombre}" placeholder="Pablito">                               
+                                            </div>
+
+                                            <div>
+                                                <label for="apellidopaterno" class="form-label"> Apellido Paterno:</label>
+                                                <input type="text" name="apellidopaterno" th:field="*{ApellidoPaterno}">
+                                            </div>
+
+                                            <div>
+                                                <label for="apellidomaterno" class="form-label"> Apellido Materno:</label>
+                                                <input type="text" name="apellidomaterno" th:field="*{ApellidoMaterno}">
+                                            </div>
+
+                                            <div>
+                                                <br>
+                                                <br>
+                                                <label for="FechaNacimiento"> Fecha Nacimiento:</label>
+                                                <br>
+                                                <input type="Date" name="FechaNacimiento" th:field="*{FechaNacimiento}" onblur="FechaNacimientoVerd(event,this)">
+                                                <br>
+                                                <span th:if="${#fields.hasErrors('FechaNacimiento')}" th:errors="*{FechaNacimiento}" class="text-danger"></span>
+                                            </div>
+
+                                            <div>
+                                                <br>
+                                                <br>
+                                                <label for="Telefono"> Telefono:</label>
+                                                <br>
+                                                <input type="text" id="Telefono" name="Telefono" th:field="*{Telefono}" placeholder="1279036391" onblur="TelVerd(event,this)">
+                                                <br>
+                                                <span th:if="${#fields.hasErrors('Telefono')}" th:errors="*{Telefono}" class="text-danger"></span>
+                                            </div>
+
+                                            <div>
+                                                <br>
+                                                <br>
+                                                <label for="Celular"> Celular:</label>
+                                                <br>
+                                                <input type="text" name="Celular" th:field="*{Celular}" placeholder="56172936338">
+                                                <br>
+                                                <span th:if="${#fields.hasErrors('Celular')}" th:errors="*{Celular}" class="text-danger"></span>
+                                            </div>
+
+                                            <div>
+                                                <br>
+                                                <br>
+                                                <label for="Email">Email</label>
+                                                <br>
+                                                <input type="text" name="Email" th:field="*{Email}" placeholder="2133432@gmail.com">
+                                                <br>
+                                                <span th:if="${#fields.hasErrors('Email')}" th:errors="*{Email}" class="text-danger"></span>
+                                            </div>
+
+                                            <div>
+                                                <br>
+                                                <br>
+                                                <label for="Sexo">Sexo</label>
+                                                <br>
+                                                <label for="sexo-select">Seleccione su sexo:</label>
+                                                <select name="sexo" id="sexo-select" th:field="*{Sexo}">
+                                                    <option value="MS">MS</option>
+                                                    <option value="FM">FM</option>
+                                                </select>
+                                            </div>
+
+                                            <div>
+                                                <br>
+                                                <br>
+                                                <label for="UserName">User Name</label>
+                                                <br>
+                                                <input type="text"  name="username" th:field="*{UserName}" placeholder="cr43">
+                                                <br>
+                                                <span th:if="${#fields.hasErrors('UserName')}" th:errors="*{UserName}" class="text-danger"></span>
+                                            </div>
+
+                                            <div>
+                                                <br>
+                                                <br>
+                                                <label for="curp">CURP</label>
+                                                <br>
+                                                <input type="text" name="curp" th:field="*{CURP}">
+                                                <br>
+                                                <span th:if="${#fields.hasErrors('CURP')}" th:errors="*{CURP}" class="text-danger"></span>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <button type="Subnit" class="btn btn-primary">Editar</button>
+                                    </div>
+                                </div>
+                            </div> <!--  Formulario en el modal -->
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card mb-1" style="width: 40rem;" id="card-2">
+                            <div class="card-body">
+                                <table class="table table-striped">
+                                <h3 style="text-align: center; color : white;">Direcciones</h3>
+                                <tr>
+                                    <th class="col-1"><i class="bi bi-map"> Calle:</i></th>
+                                    <th class="col-2"><i class="bi bi-map"> #Numero Ext:</i></th>
+                                    <th class="col-3"><i class="bi bi-map"> #Numero Int:</i></th>
+                                    <th class="col-4"><i class="bi bi-hand-index-thumb-fill">Accion</i></th>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="card-text fw-bold" th:text="${usuario.Direcciones[0].Calle}"></td>
+
+                                    <td class="card-text fw-bold" th:text="${usuario.Direcciones[0].NumeroExterior}"></td>
+
+                                    <td class="card-text fw-bold" th:text="${usuario.Direcciones[0].NumeroInterior}"></td>
+
+<!--                                    <td><p class="card-text fw-bold" th:text="${usuario.Direcciones[0].CodigoPostal}"></p></td>-->
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button>
+                                        <button type="button" class="btn btn-danger">Eliminar</button>
+                                                
+                                    </td>
+                                    
+                                </tr>
+                                </table>
+                            </div>
+
+
+
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Formulario Direcciones</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form method="post" th:action="@{/usuario/upedidireccion/{IdUsuario}(IdUusuario = ${usuario.IdUsuario})}" th:object ="${direccion}" >
+                                                <label for="calle">Calle</label>
+                                                <input type="text" class = "form-control" th:field="*{Calle}">
+
+                                                <br>
+                                                <br>
+                                                <label for="numerointerior">Numero Exterior</label>
+                                                <input type="text" class="form-control" name="numeroexterior" th:field="*{NumeroExterior}">
+
+
+                                                <br>
+                                                <br>
+                                                <label for="numerointerior">Numero Interior</label>
+                                                <input type="text" name="numerointerior" th:field="*{NumeroInterior}">
+
+
+                                                <br>
+                                                <br>
+
+                                                <div class="row">
+                                                    <label for="paisddl">Pais</label>
+                                                    <select id="ddlpais" th:field="${usuario.Direcciones[0].Colonia.Municipio.Estado.Pais.IdPais}">
+                                                        <option value="0" selected>Selecciona un pais</option>
+                                                        <option th:each ="pais : ${Paises}" th:value="${pais.idPais}" th:text="${pais.Nombre}"></option>>
+                                                    </select>
+                                                </div>
+
+
+                                                <div>
+                                                    <label for="estado">Estado</label>
+                                                    <select name="estado" id="ddlestado" th:field="${usuario.Direcciones[0].Colonia.Municipio.Estado.IdEstado}">
+                                                        <option value="0" selected>Selecciona un Estado</option>
+                                                        <option th:each ="estado : ${Estados}" th:value="${estado.idPais}" th:text="${estado.Nombre}"></option>
+                                                    </select>
+                                                </div>
+
+                                                <br>
+                                                <br>
+
+
+                                                <div>
+                                                    <label for="municipio">Municipio</label>
+                                                    <select name="municipio" id="ddlmunicipio" th:field="${usuario.Direcciones[0].Colonia.Municipio.IdMunicipio}">
+                                                        <option value="0" selected>Selecciona un Municipio</option>
+                                                        <option th:each ="municipio : ${municipio}" th:value="${municipio.idMunicipio}" th:text="${municipio.Nombre}"></option>
+                                                    </select>
+                                                </div>                        
+
+                                                <div>
+                                                    <label for="colonia">Colonia</label>
+                                                    <select class="form-control" id="ddlcolonia" th:field="${usuario.Direcciones[0].Colonia.IdColonia}">
+                                                        <option value="0" selected>Seleccione una Colonia</option>
+                                                        <option th:each ="colonia : ${colonias}" th:values="${colonia.idColonia}" th:text="${colonia.Nombre}"></option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>  
+        
+         <style>
+        #card-1{
+            margin: 20px;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+
+        }
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .gradient_anim_btn{
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 12px;
+            padding: 14px 20px 14px 20px;
+            border-color: black;
+            border-radius: 0.7em;
+            background: -webkit-linear-gradient(225deg, rgb(311, 55, 70), rgb(15, 21, 242),
+                rgb(21, 198, 251)) 0% 0% / 300% 300%;
+            background-size: 200% auto;
+            -webkit-animation: gradient_move 3s ease infinite;
+            animation: gradient_move 3s ease infinite;
+        }
+        
+        @-webkit-keyframes gradient_move {
+            0%{
+                background-position: 0% 92%
+            }
+            50%{
+                background-position: 100% 9%
+            }
+            100%{
+                background-position: 0% 92%
+            }
+        }
+
+        @keyframes gradient_move {
+            0%{
+                background-position: 0% 92%
+            }
+            50%{
+                background-position: 100% 9%
+            }
+            100%{
+                background-position: 0% 92%
+            }
+        }
+        
+        
+        #card-2{
+            
+            background-color: black
+            
+        }
+        
+    </style>
+        
+    </body>
+</html>
