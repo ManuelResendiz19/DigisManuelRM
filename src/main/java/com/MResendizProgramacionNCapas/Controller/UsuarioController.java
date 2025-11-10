@@ -105,13 +105,24 @@ public class UsuarioController {
     }
     
     
+//    @GetMapping("/bulkUpload/process")
+//    public String BulkUpload(HttpSession httpSession){
+//        String Path = httpSession.getAttribute("bulckUploadsFiles").toString();
+//        httpSession.removeAttribute("bulckUploadsFiles");
+//      
+//        
+//        return "BulkUpload";
+//    }
+//    
+    
     @GetMapping("/bulkUpload/process")
-    public String BulkUpload(HttpSession httpSession){
+    public String BulkUpload(HttpSession httpSession, List<Usuario> usuarios, Model model){
         String Path = httpSession.getAttribute("bulckUploadsFiles").toString();
         httpSession.removeAttribute("bulckUploadsFiles");
-        
-        
-        
+                
+        String patArchivo= "src/main/resources/filesLoads";
+        Result result = usuarioDAOImplementation.AddAll(usuarios);
+        model.addAttribute("usuarios", result.objects);
         
         return "BulkUpload";
     }
@@ -221,16 +232,20 @@ public class UsuarioController {
             XSSFSheet workSheet = workbook.getSheetAt(0);
             for(Row row :  workSheet){
                 Usuario usuario = new Usuario();
+                usuario.Rol = new Rol();
+                
                 usuario.setNombre(row.getCell(0).toString());
                 usuario.setApellidoPaterno(row.getCell(1).toString());
                 usuario.setApellidoMaterno(row.getCell(2).toString());
                 usuario.setFechaNacimiento(row.getCell(3).getDateCellValue());
                 usuario.setUserName(row.getCell(4).toString());
                 usuario.setEmail(row.getCell(5).toString());
-                usuario.setSexo(row.getCell(6).toString());
-                usuario.setTelefono(row.getCell(7).toString());
-                usuario.setCelular(row.getCell(8).toString());
-                usuario.setCURP(row.getCell(9).toString());         
+                usuario.setPassword(row.getCell(6).toString());
+                usuario.setSexo(row.getCell(7).toString());
+                usuario.setTelefono(row.getCell(8).toString());
+                usuario.setCelular(row.getCell(9).toString());
+                usuario.setCURP(row.getCell(10).toString());
+                usuario.Rol.setIdRols((int) row.getCell(11).getNumericCellValue());
                 
                 usuarios.add(usuario);
             }      

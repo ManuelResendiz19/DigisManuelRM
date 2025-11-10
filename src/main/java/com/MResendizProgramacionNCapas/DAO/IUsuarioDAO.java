@@ -5,6 +5,7 @@ import com.MResendizProgramacionNCapas.ML.Result;
 import com.MResendizProgramacionNCapas.DAO.UsuarioDAOImplementation;
 import com.MResendizProgramacionNCapas.ML.Direccion;
 import com.MResendizProgramacionNCapas.ML.Usuario;
+import java.util.List;
 
 public interface IUsuarioDAO {
         Result GetAll();
@@ -13,4 +14,6 @@ public interface IUsuarioDAO {
         Result UpdateUsuario(Usuario usuario);
         Result UpdateDireccion(Direccion direccion, int IdUsuario);
         Result AddDireccion(Direccion direccion, int IdUsuario);
+        
+        Result AddAll(List<Usuario> usuarios);
 }

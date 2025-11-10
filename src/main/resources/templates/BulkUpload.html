@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
+    
     <body layout:fragment="body">
         <br>
         <br>
@@ -32,7 +33,7 @@
         </div>
         
         <div th:if="${errores == false}">
-            <a class="btn btn-success" th:href = "@{/usuario/bulkUpload/process}">
+            <a class="btn btn-success" th:href = "@{/usuario/bulkUpload/process}" id="btnProcesar">Procesar</a>
         </div>
         
          <style>
@@ -83,7 +84,7 @@
         }
     </style>
         
-        <script>
+    <script>
             function mostrarArchivos() {
                 document.getElementById("mostrarArchivos").style.display = "none";
                 document.getElementById("botones").style.display = "block";
@@ -123,7 +124,35 @@
                 }
             });
             
+         document.getElementById('btnProcesar').addEventListener('click', function () {   
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong!",
+                footer: '<a href="#">Why do I have this issue?</a>'
+            });
             
+            });
+            
+            document.getElementById('btnProcesar').addEventListener('click', function () {
+                event.preventDefault();
+                
+             Swal.fire({
+                    title: "Seguro que quieres procesar?",
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: "Si, procesar",
+                    denyButtonText: `No procesar`
+             }).then((result) => {
+
+            if (result.isConfirmed) {
+                Swal.fire("Se proceso!", "", "succes");
+             } else if (result.isDenied) {
+                Swal.fire("No se proceso", "", "correctamente");
+            }
+          });
+      });
+
         </script>
     </body>
 </html>

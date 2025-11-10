@@ -33,16 +33,17 @@ public class Usuario {
     
     @NotNull(message = "Este campo no puede ser nulo")
     @NotBlank(message = "Este campo debe contener datos y no debe estar vacia")
-    @Size(min = 3, max = 6, message = "El User Name esta en un rango de 3 a 6 letras")
+    @Size(min = 3, max = 10, message = "El User Name esta en un rango de 3 a 6 letras")
     private String UserName;
     
-    @NotNull(message = "Este campo no puede ser nulo")
-    @NotBlank(message = "Este campo debe contener datos y no debe estar vacia")    
-    @Size(min = 20, max = 40, message = "El Email tiene un rango de 20 a 40 letras")
+//    @NotNull(message = "Este campo no puede ser nulo")
+//    @NotBlank(message = "Este campo debe contener datos y no debe estar vacia")    
+//    @Size(min = 20, max = 40, message = "El Email tiene un rango de 20 a 40 letras")
     private String Email;
-    @NotNull(message = "Este campo no puede ser nulo")
-    @NotBlank(message = "Este campo debe contener datos y no debe estar vacia")
-    @Size(min = 4, max = 8, message = "El Password esta en un rango de 4 a 8 caracteres")
+    
+//    @NotNull(message = "Este campo no puede ser nulo")
+//    @NotBlank(message = "Este campo debe contener datos y no debe estar vacia")
+//    @Size(min = 4, max = 8, message = "El Password esta en un rango de 4 a 8 caracteres")
     private String Password;
     
     @NotNull(message = "Este campo no puede ser nulo")

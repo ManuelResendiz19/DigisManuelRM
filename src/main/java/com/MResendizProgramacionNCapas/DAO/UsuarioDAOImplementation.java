@@ -11,7 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.jdbc.core.CallableStatementCallback;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class UsuarioDAOImplementation implements IUsuarioDAO {
@@ -298,6 +300,40 @@ public class UsuarioDAOImplementation implements IUsuarioDAO {
              }            
              return result;
          });
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Result AddAll(List<Usuario> usuarios) {
+        
+        Result result =  new Result();
+        
+        try {
+
+            jdbcTemplate.batchUpdate("{CALL UsuarioADD(?,?,?,?,?,?,?,?,?,?,?,?)}", usuarios, usuarios.size(), (callableStatement, usuario) -> {
+                callableStatement.setString(1, usuario.getNombre());
+                callableStatement.setString(2, usuario.getApellidoPaterno());
+                callableStatement.setString(3, usuario.getApellidoMaterno());
+                callableStatement.setDate(4, new java.sql.Date(usuario.getFechaNacimiento().getTime()));
+                callableStatement.setString(5, usuario.getUserName());
+                callableStatement.setString(6, usuario.getEmail());
+                callableStatement.setString(7, usuario.getPassword());
+                callableStatement.setString(8, usuario.getSexo());
+                callableStatement.setString(9, usuario.getTelefono());
+                callableStatement.setString(10, usuario.getCelular());
+                callableStatement.setString(11, usuario.getCURP());
+                callableStatement.setInt(12, usuario.Rol.getIdRols());
+            });
+        
+        result.correct = true;
+        
+        } catch (Exception ex) {
+            result.correct = false;
+            result.errorMessage = ex.getLocalizedMessage();
+            result.ex = ex;
+        }
+        
+        return result;
     }
     
     
