@@ -6,13 +6,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "ROL")
+@Table(name = "ROLS")
 public class RolJPA {
-
-    
+   
     @Id
     @Column(name = "idrols")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +19,7 @@ public class RolJPA {
     
     @Column(name = "nombrerol")
     private String NombreRol;
+    
 
     public int getIdRols() {
         return IdRols;

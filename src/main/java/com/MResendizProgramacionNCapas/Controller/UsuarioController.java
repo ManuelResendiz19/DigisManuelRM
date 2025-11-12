@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.MResendizProgramacionNCapas.DAO.UsuarioDAOImplementation;
+import com.MResendizProgramacionNCapas.DAO.UsuarioDAOImplementationJPA;
 import com.MResendizProgramacionNCapas.ML.Direccion;
 import com.MResendizProgramacionNCapas.ML.ErrorLoad;
 import com.MResendizProgramacionNCapas.ML.Rol;
@@ -55,6 +56,9 @@ public class UsuarioController {
     
     @Autowired
     private UsuarioDAOImplementation usuarioDAOImplementation;
+    
+    @Autowired
+    private UsuarioDAOImplementationJPA usuarioDAOImplementationJPA;
 
     @Autowired
     private RolDAOImplementation rolDAOImplementation;
@@ -74,6 +78,7 @@ public class UsuarioController {
     @GetMapping
     public String Index(Model model) {
         Result result = usuarioDAOImplementation.GetAll();
+        Result resultJPA = usuarioDAOImplementationJPA.GetAll();
         Result resultRol = rolDAOImplementation.GetAll();
         
         model.addAttribute("usuario", new Usuario());

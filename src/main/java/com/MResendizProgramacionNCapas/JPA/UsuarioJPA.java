@@ -1,7 +1,7 @@
 
 package com.MResendizProgramacionNCapas.JPA;
 
-import com.MResendizProgramacionNCapas.JPA.RolJPA;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,8 +9,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.Date;
-import org.springframework.data.relational.core.mapping.Table;
+import java.util.List;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "USUARIO")
@@ -21,7 +24,7 @@ public class UsuarioJPA {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int IdUsuario;
     
-    @Column(name = "nombre")
+    @Column(name = "nombre" )
     private String Nombre;
     
     @Column(name = "apellidopaterno")
@@ -57,6 +60,24 @@ public class UsuarioJPA {
     @ManyToOne
     @JoinColumn(name = "idrols")
     public RolJPA RolJPA;
+    
+    @OneToMany(mappedBy = "UsuarioJPA", cascade = CascadeType.ALL,orphanRemoval = true)
+    public List<DireccionJPA> DireccionesJPA = new ArrayList<>();
+    
+//    public UsuarioJPA (String Nombre, String ApellidoPaterno, String ApellidoMaterno, Date FechaNacimiento, String Username,String Email, String Password, String Sexo, String Telefono, String Celular, String CURP){
+//        this.IdUsuario = IdUsuario;
+//        this.Nombre = Nombre;
+//        this.ApellidoPaterno = ApellidoPaterno;
+//        this.ApellidoMaterno = ApellidoMaterno;
+//        this.FechaNacimiento = FechaNacimiento;
+//        this.Telefono = Telefono;
+//        this.UserName = UserName;
+//        this.Email = Email;
+//        this.Password = Password;
+//        this.Sexo = Sexo;
+//        this.Celular = Celular;
+//        this.CURP = CURP;
+//    }
     
     public int getIdUsuario() {
         return IdUsuario;
@@ -162,12 +183,13 @@ public class UsuarioJPA {
         this.RolJPA = RolJPA;
     }
 
-   
+    public List<DireccionJPA> getDireccionesJPA() {
+        return DireccionesJPA;
+    }
 
-    
+    public void setDireccionesJPA(List<DireccionJPA> DireccionesJPA) {
+        this.DireccionesJPA = DireccionesJPA;
+    }
 
-    
-    
-    
     
 }
