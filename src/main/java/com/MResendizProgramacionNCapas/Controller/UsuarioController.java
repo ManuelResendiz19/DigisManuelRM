@@ -82,7 +82,7 @@ public class UsuarioController {
         Result resultRol = rolDAOImplementation.GetAll();
         
         model.addAttribute("usuario", new Usuario());
-        model.addAttribute("Usuarios", result.objects);
+        model.addAttribute("Usuarios", resultJPA.objects);
         model.addAttribute("Rols", resultRol.objects);
 
         return "UsuarioIndex";
