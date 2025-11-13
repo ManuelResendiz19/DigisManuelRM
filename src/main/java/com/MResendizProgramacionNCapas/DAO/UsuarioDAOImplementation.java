@@ -2,7 +2,7 @@ package com.MResendizProgramacionNCapas.DAO;
 
 import com.MResendizProgramacionNCapas.ML.Direccion;
 import com.MResendizProgramacionNCapas.ML.Result;
-import com.MResendizProgramacionNCapas.ML.Rol;
+
 
 import com.MResendizProgramacionNCapas.ML.Usuario;
 import java.sql.Types;

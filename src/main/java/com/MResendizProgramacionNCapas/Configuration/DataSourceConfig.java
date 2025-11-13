@@ -1,6 +1,10 @@
 
 package com.MResendizProgramacionNCapas.Configuration;
 
+import com.MResendizProgramacionNCapas.JPA.DireccionJPA;
+import com.MResendizProgramacionNCapas.JPA.UsuarioJPA;
+import com.MResendizProgramacionNCapas.ML.Direccion;
+import com.MResendizProgramacionNCapas.ML.Usuario;
 import javax.sql.DataSource;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +33,12 @@ public class DataSourceConfig {
     
     @Bean
     public ModelMapper modelMapper(){
-        return new ModelMapper();
+        
+        ModelMapper modelMapper =  new ModelMapper();
+        modelMapper.typeMap(Usuario.class, UsuarioJPA.class);
+        modelMapper.typeMap(Direccion.class, DireccionJPA.class);
+
+        return modelMapper;
     }
     
 }

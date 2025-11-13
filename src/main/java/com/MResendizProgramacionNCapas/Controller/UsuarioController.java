@@ -282,7 +282,7 @@ public class UsuarioController {
         usuario.Direcciones = new ArrayList<>();
         Direccion direccion = new Direccion();
         usuario.Direcciones.add(direccion);
-
+        
         Result resultRol = rolDAOImplementation.GetAll();
         Result resultPais = paisDAOImplementation.PaisGetAll();
 //        Result resultEstado = estadoDAOImplementation.EstadosGetByIdPais(0);
@@ -302,8 +302,8 @@ public class UsuarioController {
     public String Form(@Valid @ModelAttribute("usuario") Usuario usuario,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes,
-            Model model,
-            @RequestParam("imagenFile") MultipartFile imagenFile) {
+            Model model
+            /*@RequestParam("imagenFile") MultipartFile imagenFile*/) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("Usuario", usuario);
             model.addAttribute("rols", rolDAOImplementation.GetAll().objects);
@@ -316,6 +316,7 @@ public class UsuarioController {
 
                     if (usuario.Direcciones.get(0).Colonia.Municipio.getIdMunicipio() > 0) {
                         model.addAttribute("colonias", coloniaDAOImplementation.GetByIdMunicipio(usuario.Direcciones.get(0).Colonia.Municipio.getIdMunicipio()).objects);
+
                     }
                 }
             }
@@ -323,21 +324,21 @@ public class UsuarioController {
             return "UsuarioForm";
         }
         
-        if(imagenFile != null){
-            try{
-                String extension = imagenFile.getOriginalFilename().split("\\.")[1];
-                if(extension.equals("jpg")||extension.equals("png")){
-                    
-                    byte[] byteImagen = imagenFile.getBytes();
-                    String imagenBase64 = Base64.getEncoder().encodeToString(byteImagen);
-                    usuario.setImagen(imagenBase64);
-                }
-            }catch(IOException ex){
-                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        }
-        
+//        if(imagenFile != null){
+//            try{
+//                String extension = imagenFile.getOriginalFilename().split("\\.")[1];
+//                if(extension.equals("jpg")||extension.equals("png")){
+//                    
+//                    byte[] byteImagen = imagenFile.getBytes();
+//                    String imagenBase64 = Base64.getEncoder().encodeToString(byteImagen);
+//                    usuario.setImagen(imagenBase64);
+//                }
+//            }catch(IOException ex){
+//                Logger.getLogger(UsuarioController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            
+//        }
+        Result result = usuarioDAOImplementationJPA.Add(usuario);
         redirectAttributes.addFlashAttribute("successMessage", "El usuario" + usuario.getUserName() + "Se creo con exito.");
         return "redirect:/usuario"; 
 

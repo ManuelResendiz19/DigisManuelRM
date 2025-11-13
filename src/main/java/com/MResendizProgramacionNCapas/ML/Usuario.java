@@ -9,19 +9,24 @@ import java.util.List;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class Usuario {
+    
     private int IdUsuario;
+    
     @NotNull(message = "Este campo no debe ser nulo")
     @NotBlank (message = "Este campo debe contener datos y no debe estar vacia")
     @Size(min = 2, max = 20, message = "El nombre esta en un rango de 2 a 20 letras")    
     private String Nombre;
+    
     @NotNull(message = "Este campo no debe ser nulo")
     @NotBlank (message = "Este campo debe contener datos y no debe estar vacia")
     @Size(min = 2, max = 20, message = "El Apellido Paterno esta en un rango de 2 a 20 letras")    
     private String ApellidoPaterno;
+    
     @NotNull(message = "El campo no debe ser nulo")
     @NotBlank(message = "El campo debe contener datos y no debe estar vacia")
     @Size(min=4 , max = 20, message = "El Apellido Materno esta en un rango de 4 a 20 letras")
     private String ApellidoMaterno;
+    
     @Past(message = "La fecha de Nacimiento debe ser menor a la actual")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date FechaNacimiento;
