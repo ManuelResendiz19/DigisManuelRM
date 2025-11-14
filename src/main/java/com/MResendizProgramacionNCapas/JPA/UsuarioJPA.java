@@ -57,6 +57,9 @@ public class UsuarioJPA {
     @Column(name = "curp")
     private String CURP;
     
+    @Column(name = "imagen")
+    private String Imagen;
+    
     @ManyToOne
     @JoinColumn(name = "idrols")
     public RolJPA RolJPA;
@@ -189,6 +192,14 @@ public class UsuarioJPA {
 
     public void setDireccionesJPA(List<DireccionJPA> DireccionesJPA) {
         this.DireccionesJPA = DireccionesJPA;
+    }
+
+    public String getImagen() {
+        return Imagen;
+    }
+
+    public void setImagen(String Imagen) {
+        this.Imagen = Imagen;
     }
 
     

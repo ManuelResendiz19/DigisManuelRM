@@ -12,6 +12,7 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.hibernate.sql.exec.ExecutionException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +24,9 @@ public class UsuarioDAOImplementationJPA implements IUsuarioJPA{
     @Autowired
     private EntityManager entityManager;
     
-
+    @Autowired
+    private IUsuarioJRepository usuarioRepo;
+    
     @Autowired
     private ModelMapper modelMapper;
     
@@ -75,9 +78,7 @@ public class UsuarioDAOImplementationJPA implements IUsuarioJPA{
                 .collect(Collectors.toList());
 
             usuarioJPA.setDireccionesJPA(direccionesJPA);
-        }
-                
-                
+        }               
             entityManager.persist(usuarioJPA);
        
         }catch(Exception ex){
@@ -88,31 +89,60 @@ public class UsuarioDAOImplementationJPA implements IUsuarioJPA{
 
         return result;
     }
+
+    
+    @Override
+     public Result GetById(Integer IdUsuario){
+         Result result = new Result();
+         
+         try {
+                UsuarioJPA usuarioJPA = usuarioRepo.findById(IdUsuario).orElse(null);
+                
+                if(usuarioJPA !=null){
+                Usuario usuariogetId = modelMapper.map(usuarioJPA, Usuario.class);
+                result.correct = true;
+                 result.object = usuariogetId;
+                }
+                 
+        } catch (Exception ex) {
+            result.correct =  false;
+            result.errorMessage =  ex.getLocalizedMessage();
+            result.ex =  ex;
+            
+        }
+    
+         return result;
+     }
     
     
-//    @Transactional(rollbackFor = Exception.class)
-//    @Override
-//    public Result Update(Usuario usuario) {
-//        Result result = new Result();
-//        
-//        try {
-//            UsuarioJPA usuarioJPA = new UsuarioJPA();
-//            Optional<UsuarioJPA> optionalUsuario = usuarioJPA.findById("IdUsuario");
-//            
-//            usuarioJPA.setNombre(usuario.getNombre());
-//            
-//            
-//            
-//            
-//            result.correct = true;
-//        } catch (Exception ex) {
-//            result.correct = false;
-//            result.errorMessage =  ex.getLocalizedMessage();
-//            result.ex = ex;
-//        }
-//        
-//        return result;
-//    }
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Result Update(Usuario usuario) {
+        Result result = new Result();
+        try {
+            
+           Optional<UsuarioJPA> usuarioOptional = usuarioRepo.findById(usuario.getIdUsuario());
+           if(usuarioOptional.isPresent()){
+               UsuarioJPA usuarioJPA =  usuarioOptional.get();
+               UsuarioJPA usuarioUpdate = modelMapper.map(usuario, UsuarioJPA.class);
+               usuarioUpdate.setPassword(usuarioJPA.getPassword());
+               usuarioUpdate.setImagen(usuarioJPA.getImagen());
+               usuarioRepo.save(usuarioUpdate);
+           }
+         
+            result.correct =  true;
+            
+        } catch (Exception ex) {
+            result.correct =  false;
+            result.errorMessage =  ex.getLocalizedMessage();
+            result.ex =  ex;
+        }
+        
+        return result;
+    }
+    
+    
+
 
     
     

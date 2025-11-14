@@ -263,7 +263,7 @@ public class UsuarioController {
     
     @GetMapping("/detail/{IdUsuario}")
     public String Detail(@PathVariable("IdUsuario") int IdUsuario, Model model) {
-        model.addAttribute("usuario", usuarioDAOImplementation.GetById(IdUsuario).object);
+        model.addAttribute("usuario", usuarioDAOImplementationJPA.GetById(IdUsuario).object);
         model.addAttribute("direccion", new Direccion());
         
         return "UsuarioDetail";
@@ -365,7 +365,8 @@ public class UsuarioController {
     
     @PostMapping("/detail")
     public String UpdateUsuario(@ModelAttribute("Usuario") Usuario usuario) {
-        Result result = usuarioDAOImplementation.UpdateUsuario(usuario);
+//        Result result = usuarioDAOImplementation.UpdateUsuario(usuario);
+        Result result = usuarioDAOImplementationJPA.Update(usuario);
         return "redirect:/usuario/detail/" + usuario.getIdUsuario();
     }
     

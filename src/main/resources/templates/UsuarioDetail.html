@@ -130,104 +130,98 @@
                             </div>
                             <!--  Formulario con un modal -->
                             <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog modal-lg"> <!-- modal más ancho -->
                                     <div class="modal-content">
                                         <form th:action="@{/usuario/detail}" method="post" th:object="${usuario}">
-                                            <div class="mb-3" >
-                                                <br>
-                                                <label for="nombre" class="form-label"> Nombre:</label>
-                                                <input type="text" name="nombre" th:field="*{Nombre}" placeholder="Pablito">                               
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Editar Usuario</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                                            </div>
+                                            <div class="modal-body">
+
+                                                <div class="row g-3"> <!-- fila con separación entre campos -->
+
+                                                    <!-- Nombre -->
+                                                    <div class="col-md-6">
+                                                        <label for="nombre" class="form-label">Nombre</label>
+                                                        <input type="text" class="form-control" name="nombre" th:field="*{Nombre}" placeholder="Pablito">
+                                                    </div>
+
+                                                    <!-- Apellido Paterno -->
+                                                    <div class="col-md-6">
+                                                        <label for="apellidopaterno" class="form-label">Apellido Paterno</label>
+                                                        <input type="text" class="form-control" name="apellidopaterno" th:field="*{ApellidoPaterno}">
+                                                    </div>
+
+                                                    <!-- Apellido Materno -->
+                                                    <div class="col-md-6">
+                                                        <label for="apellidomaterno" class="form-label">Apellido Materno</label>
+                                                        <input type="text" class="form-control" name="apellidomaterno" th:field="*{ApellidoMaterno}">
+                                                    </div>
+
+                                                    <!-- Fecha de Nacimiento -->
+                                                    <div class="col-md-6">
+                                                        <label for="FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                                                        <input type="date" class="form-control" name="FechaNacimiento" th:field="*{FechaNacimiento}" onblur="FechaNacimientoVerd(event,this)">
+                                                        <span th:if="${#fields.hasErrors('FechaNacimiento')}" th:errors="*{FechaNacimiento}" class="text-danger"></span>
+                                                    </div>
+
+                                                    <!-- Teléfono -->
+                                                    <div class="col-md-6">
+                                                        <label for="Telefono" class="form-label">Teléfono</label>
+                                                        <input type="text" class="form-control" id="Telefono" name="Telefono" th:field="*{Telefono}" placeholder="1279036391" onblur="TelVerd(event,this)">
+                                                        <span th:if="${#fields.hasErrors('Telefono')}" th:errors="*{Telefono}" class="text-danger"></span>
+                                                    </div>
+
+                                                    <!-- Celular -->
+                                                    <div class="col-md-6">
+                                                        <label for="Celular" class="form-label">Celular</label>
+                                                        <input type="text" class="form-control" name="Celular" th:field="*{Celular}" placeholder="56172936338">
+                                                        <span th:if="${#fields.hasErrors('Celular')}" th:errors="*{Celular}" class="text-danger"></span>
+                                                    </div>
+
+                                                    <!-- Email -->
+                                                    <div class="col-md-12">
+                                                        <label for="Email" class="form-label">Email</label>
+                                                        <input type="email" class="form-control" name="Email" th:field="*{Email}" placeholder="ejemplo@gmail.com">
+                                                        <span th:if="${#fields.hasErrors('Email')}" th:errors="*{Email}" class="text-danger"></span>
+                                                    </div>
+
+                                                    <!-- Sexo -->
+                                                    <div class="col-md-6">
+                                                        <label for="Sexo" class="form-label">Sexo</label>
+                                                        <select class="form-select" name="sexo" id="sexo-select" th:field="*{Sexo}">
+                                                            <option value="MS">MS</option>
+                                                            <option value="FM">FM</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- User Name -->
+                                                    <div class="col-md-6">
+                                                        <label for="UserName" class="form-label">User Name</label>
+                                                        <input type="text" class="form-control" name="username" th:field="*{UserName}" placeholder="cr43">
+                                                        <span th:if="${#fields.hasErrors('UserName')}" th:errors="*{UserName}" class="text-danger"></span>
+                                                    </div>
+
+                                                    <!-- CURP -->
+                                                    <div class="col-md-12">
+                                                        <label for="curp" class="form-label">CURP</label>
+                                                        <input type="text" class="form-control" name="curp" th:field="*{CURP}">
+                                                        <span th:if="${#fields.hasErrors('CURP')}" th:errors="*{CURP}" class="text-danger"></span>
+                                                    </div>
+
+                                                </div>
                                             </div>
 
-                                            <div>
-                                                <label for="apellidopaterno" class="form-label"> Apellido Paterno:</label>
-                                                <input type="text" name="apellidopaterno" th:field="*{ApellidoPaterno}">
-                                            </div>
-
-                                            <div>
-                                                <label for="apellidomaterno" class="form-label"> Apellido Materno:</label>
-                                                <input type="text" name="apellidomaterno" th:field="*{ApellidoMaterno}">
-                                            </div>
-
-                                            <div>
-                                                <br>
-                                                <br>
-                                                <label for="FechaNacimiento"> Fecha Nacimiento:</label>
-                                                <br>
-                                                <input type="Date" name="FechaNacimiento" th:field="*{FechaNacimiento}" onblur="FechaNacimientoVerd(event,this)">
-                                                <br>
-                                                <span th:if="${#fields.hasErrors('FechaNacimiento')}" th:errors="*{FechaNacimiento}" class="text-danger"></span>
-                                            </div>
-
-                                            <div>
-                                                <br>
-                                                <br>
-                                                <label for="Telefono"> Telefono:</label>
-                                                <br>
-                                                <input type="text" id="Telefono" name="Telefono" th:field="*{Telefono}" placeholder="1279036391" onblur="TelVerd(event,this)">
-                                                <br>
-                                                <span th:if="${#fields.hasErrors('Telefono')}" th:errors="*{Telefono}" class="text-danger"></span>
-                                            </div>
-
-                                            <div>
-                                                <br>
-                                                <br>
-                                                <label for="Celular"> Celular:</label>
-                                                <br>
-                                                <input type="text" name="Celular" th:field="*{Celular}" placeholder="56172936338">
-                                                <br>
-                                                <span th:if="${#fields.hasErrors('Celular')}" th:errors="*{Celular}" class="text-danger"></span>
-                                            </div>
-
-                                            <div>
-                                                <br>
-                                                <br>
-                                                <label for="Email">Email</label>
-                                                <br>
-                                                <input type="text" name="Email" th:field="*{Email}" placeholder="2133432@gmail.com">
-                                                <br>
-                                                <span th:if="${#fields.hasErrors('Email')}" th:errors="*{Email}" class="text-danger"></span>
-                                            </div>
-
-                                            <div>
-                                                <br>
-                                                <br>
-                                                <label for="Sexo">Sexo</label>
-                                                <br>
-                                                <label for="sexo-select">Seleccione su sexo:</label>
-                                                <select name="sexo" id="sexo-select" th:field="*{Sexo}">
-                                                    <option value="MS">MS</option>
-                                                    <option value="FM">FM</option>
-                                                </select>
-                                            </div>
-
-                                            <div>
-                                                <br>
-                                                <br>
-                                                <label for="UserName">User Name</label>
-                                                <br>
-                                                <input type="text"  name="username" th:field="*{UserName}" placeholder="cr43">
-                                                <br>
-                                                <span th:if="${#fields.hasErrors('UserName')}" th:errors="*{UserName}" class="text-danger"></span>
-                                            </div>
-
-                                            <div>
-                                                <br>
-                                                <br>
-                                                <label for="curp">CURP</label>
-                                                <br>
-                                                <input type="text" name="curp" th:field="*{CURP}">
-                                                <br>
-                                                <span th:if="${#fields.hasErrors('CURP')}" th:errors="*{CURP}" class="text-danger"></span>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-primary">Editar</button>
                                             </div>
                                         </form>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                        <button type="Subnit" class="btn btn-primary">Editar</button>
-                                    </div>
                                 </div>
-                            </div> <!--  Formulario en el modal -->
+                            </div>
+
 
 
                         </div>
