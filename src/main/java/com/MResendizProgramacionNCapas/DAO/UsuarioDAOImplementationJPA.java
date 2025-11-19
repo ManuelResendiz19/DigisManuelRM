@@ -27,6 +27,7 @@ public class UsuarioDAOImplementationJPA implements IUsuarioJPA{
     @Autowired
     private IUsuarioJRepository usuarioRepo;
     
+    
     @Autowired
     private ModelMapper modelMapper;
     
@@ -121,7 +122,8 @@ public class UsuarioDAOImplementationJPA implements IUsuarioJPA{
         Result result = new Result();
         try {
             
-           Optional<UsuarioJPA> usuarioOptional = usuarioRepo.findById(usuario.getIdUsuario());
+            Optional<UsuarioJPA> usuarioOptional = usuarioRepo.findById(usuario.getIdUsuario());
+           
            if(usuarioOptional.isPresent()){
                UsuarioJPA usuarioJPA =  usuarioOptional.get();
                UsuarioJPA usuarioUpdate = modelMapper.map(usuario, UsuarioJPA.class);
