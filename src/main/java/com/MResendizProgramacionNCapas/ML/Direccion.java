@@ -37,9 +37,6 @@ public class Direccion {
         return Calle;
     }
 
-
-    
-    
     
     public void setNumeroInterior(String NumeroInterior){
         this.NumeroInterior = NumeroInterior;

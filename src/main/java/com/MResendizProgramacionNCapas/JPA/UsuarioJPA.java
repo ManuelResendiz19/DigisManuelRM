@@ -36,8 +36,8 @@ public class UsuarioJPA {
     @Column(name = "fechanacimiento")
     private Date FechaNacimiento;
     
-    @Column(name = "username")
-    private String UserName;
+    @Column(name = "userName")
+    private String userName;
     
     @Column(name = "email")
     private String Email;
@@ -123,11 +123,11 @@ public class UsuarioJPA {
     }
 
     public String getUserName() {
-        return UserName;
+        return userName;
     }
 
-    public void setUserName(String UserName) {
-        this.UserName = UserName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
@@ -200,7 +200,5 @@ public class UsuarioJPA {
 
     public void setImagen(String Imagen) {
         this.Imagen = Imagen;
-    }
-
-    
+    }  
 }

@@ -25,7 +25,7 @@ public class UsuarioDAOImplementationJPA implements IUsuarioJPA{
     private EntityManager entityManager;
     
     @Autowired
-    private IUsuarioJRepository usuarioRepo;
+    private IUsuarioJPARepository usuarioRepo;
     
     
     @Autowired
